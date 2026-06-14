@@ -125,16 +125,16 @@ GET    /api/owner/dashboard          Store stats + raters list (STORE_OWNER)
 ### Backend — `backend/.env`
 
 ```env
-DATABASE_URL="postgresql://postgres:password@localhost:5432/store_rating_db"
+DATABASE_URL="postgresql://postgres:password@localhost:5433/store_rating_db"
 JWT_SECRET="your_super_secret_jwt_key_change_in_production"
 PORT=5000
-FRONTEND_URL="http://localhost:3000"
+FRONTEND_URL="http://localhost:5173"
 ```
 
 ### Frontend — `frontend/.env`
 
 ```env
-REACT_APP_API_URL=http://localhost:5000/api
+VITE_API_URL=http://localhost:5000/api
 ```
 
 ---
@@ -144,7 +144,7 @@ REACT_APP_API_URL=http://localhost:5000/api
 ### Prerequisites
 
 - Node.js v18+
-- PostgreSQL running locally (or use a cloud DB like Supabase/Neon)
+- Docker & Docker Compose (for the local PostgreSQL container)
 - npm
 
 ---
@@ -152,8 +152,8 @@ REACT_APP_API_URL=http://localhost:5000/api
 ### 1. Clone & Install
 
 ```bash
-git clone <your-repo-url>
-cd store-rating-app
+git clone https://github.com/gopalmehtre/store-rating-site.git
+cd store-rating-site
 ```
 
 ```bash
@@ -182,6 +182,9 @@ cp .env.example .env
 ### 3. Set Up Database
 
 ```bash
+# Start PostgreSQL via Docker Compose (from the project root)
+docker-compose up -d
+
 cd backend
 
 # Generate Prisma client
@@ -207,12 +210,12 @@ This creates the admin account:
 cd backend
 npm run dev
 
-# Terminal 2 — Frontend (http://localhost:3000)
+# Terminal 2 — Frontend (http://localhost:5173)
 cd frontend
-npm start
+npm run dev
 ```
 
-Open **http://localhost:3000** and log in as admin.
+Open **http://localhost:5173** and log in as admin.
 
 ---
 
